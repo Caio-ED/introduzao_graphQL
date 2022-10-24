@@ -3,40 +3,30 @@ import { createServer } from "@graphql-yoga/node";
 //1 esppecificar as operaçoes que existem. ou seja a nossa interface.
 //tipo com ! nao pode null é obrgatorio o tipo especificado
 const typeDefs = `
-    type Query {
-        hello: String!
-        name: String!
+    type Livro {
         id: ID!
-        localizacao: String!
-        idade: Int!
-        deMaior: Boolean!
-        salario: Float!
+        titulo: String!
+        genero: String!
+        edicao: Int
+        preco: Float
+    },
+
+    type Query {
+        effectiveJava: Livro!
     }
 `
 
 //2 implementar as operações prometidas na interface. ou seja escrever o resolver para cada operação prometida. resolver é uma função.
 const resolvers = {
     Query: {
-        hello () {
-            return 'Hello, GraphQL!!!'
-        },
-        name () {
-            return 'joao'
-        },
-        id () {
-            return 'umid'
-        },
-        localizacao(){
-            return ''
-        },
-        idade () {
-            return 3
-        },
-        deMaior () {
-            return true
-        },
-        salario () {
-            return 432432
+        effectiveJava(){
+            return {
+                id: '123456',
+                titulo: 'EffectiveJava',
+                genero: 'Técnico',
+                edicao: 3,
+                preco: 43.9
+            }
         }
     }
 }
