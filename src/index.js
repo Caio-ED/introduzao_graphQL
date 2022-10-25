@@ -12,13 +12,24 @@ const typeDefs = `
     },
 
     type Query {
+        bemVindo(nome: String): String!
         effectiveJava: Livro!
+        notas: [Int!]!
+        adicionar(numeros: [Float!]!): Float!
     }
 `
 
 //2 implementar as operações prometidas na interface. ou seja escrever o resolver para cada operação prometida. resolver é uma função.
 const resolvers = {
     Query: {
+        bemVindo(parents, args, ctx, info) {
+            // console.log(parents);
+            console.log(args);
+            // console.log(ctx);
+            // console.log(info);
+            
+            return `Bem vindo ${args.nome ? args.nome : 'Visitante'}!`
+        },
         effectiveJava(){
             return {
                 id: '123456',
@@ -27,7 +38,17 @@ const resolvers = {
                 edicao: 3,
                 preco: 43.9
             }
+        },
+        notas(){
+            return [1,2,3,4,5]
+        },
+        adicionar(parents, args, ctx, info) {
+            return  args.numeros.length <= 0 ? 0:
+            args.numeros.reduce((ac, atual) => {
+                return ac + atual;
+            })
         }
+
     }
 }
 
